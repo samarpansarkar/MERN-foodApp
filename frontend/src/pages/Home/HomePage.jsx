@@ -1,7 +1,9 @@
+import Header from "../../components/Header/Header"
+
 const HomePage = () => {
     return (
-        <div>
-
+        <div className="pt-4">
+            <Header />
         </div>
     )
 }
