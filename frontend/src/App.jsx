@@ -5,6 +5,8 @@ import ErrorPage from "./ErrorPage"
 import CartPage from "./pages/Cart/CartPage"
 import PlaceOrderPage from "./pages/PlaceOrder/PlaceOrderPage"
 import Footer from "./components/Footer/Footer"
+import AppDownload from "./components/AppDownload/AppDownload"
+import ExploreMenu from "./components/ExploreMenu/ExploreMenu"
 
 const App = () => {
   return (
@@ -13,15 +15,13 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/menu" element={<HomePage />} />
-          <Route path="/mobile-app" element={<HomePage />} />
           <Route path="/contact-us" element={<HomePage />} />
-
           <Route path="/cart" element={<CartPage />} />
           <Route path="/order" element={<PlaceOrderPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>
+      <AppDownload />
       <Footer />
     </>
   )
