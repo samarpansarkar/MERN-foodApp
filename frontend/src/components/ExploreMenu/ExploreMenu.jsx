@@ -1,7 +1,6 @@
 import { menu_list } from "../../assets/assets"
 
 const ExploreMenu = ({ category, setCategory }) => {
-    console.log(category);
     return (
         <div className="flex-col text-gray-700 border border-orange-300 my-4 p-1 rounded-md" id="explore-menu">
             <h1 className="text-orange-600  text-3xl underline text-center">Explore our menu</h1>
