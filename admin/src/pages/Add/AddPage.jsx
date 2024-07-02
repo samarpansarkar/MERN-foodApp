@@ -38,7 +38,7 @@ const AddPage = () => {
         setImage(""),
         toast.success("Product added successfully")
       )
-      .catch(toast.error(response.data.message));
+      .catch(toast.error("Error adding product"));
   };
 
   return (
