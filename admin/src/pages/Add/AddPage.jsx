@@ -2,6 +2,7 @@ import { useState } from "react";
 import { assets } from "../../assets/assets";
 import "./AddPage.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AddPage = () => {
   const url = "http://localhost:4444";
@@ -33,11 +34,11 @@ const AddPage = () => {
     const response = await axios
       .post(`${url}/api/food/add`, formData)
       .then(
-        alert("Product added successfully"),
         setData({ name: "", description: "", price: "", category: "" }),
-        setImage("")
+        setImage(""),
+        toast.success("Product added successfully")
       )
-      .catch((err) => console.log(err));
+      .catch(toast.error(response.data.message));
   };
 
   return (
