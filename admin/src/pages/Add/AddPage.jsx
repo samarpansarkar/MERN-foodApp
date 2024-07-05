@@ -88,7 +88,7 @@ const AddPage = () => {
               <option value='Deserts'>Deserts</option>
               <option value='Sandwich'>Sandwich</option>
               <option value='Cake'>Cake</option>
-              <option value='Pure VegPasta'>Pure VegPasta</option>
+              <option value='Pure VegPasta'>Pure Veg Pasta</option>
               <option value='Pasta'>Pasta</option>
               <option value='Noodles'>Noodles</option>
             </select>
