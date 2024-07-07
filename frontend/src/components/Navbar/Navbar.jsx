@@ -1,12 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../../assets/assets.js";
 import { useContext, useState } from "react";
 import { StoreContext } from "../../context/StoreContext.jsx";
 
+import "./Navbar.css";
+
 const Navbar = ({ showLogin, setShowLogin }) => {
   const [menu, setMenu] = useState("home");
 
-  const { getTotalCartAmount } = useContext(StoreContext);
+  const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
+
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    setToken(null);
+    localStorage.removeItem("token");
+    nevigate("/");
+  };
 
   return (
     <div className='p-20px flex justify-between items-center '>
@@ -69,13 +79,31 @@ const Navbar = ({ showLogin, setShowLogin }) => {
                 : "absolute min-w-3 min-h-3 bg-orange-600 border-solid rounded-[50%] top-[-8px] right-[-8px] animate-bounce"
             }></div>
         </div>
-        <button
-          onClick={() => {
-            showLogin ? setShowLogin(false) : setShowLogin(true);
-          }}
-          className='text-base px-3 py-2 border-2 border-solid border-orange-300 rounded-2xl  hover:bg-orange-600 hover:text-white'>
-          sign in
-        </button>
+        {!token ? (
+          <button
+            onClick={() => {
+              showLogin ? setShowLogin(false) : setShowLogin(true);
+            }}
+            className='text-base px-3 py-2 border-2 border-solid border-orange-300 rounded-2xl  hover:bg-orange-600 hover:text-white'>
+            Login
+          </button>
+        ) : (
+          <div className='navbar-profile'>
+            <img src={assets.profile_icon} alt='profile' />
+            <ul className='navbar-profile-dropdown'>
+              <li>
+                <img src={assets.bag_icon} alt='' />
+                <p>Orders</p>
+              </li>
+              <hr />
+              <li onClick={logOut}>
+                <img src={assets.logout_icon} alt='' />
+                <p>Logout</p>
+              </li>
+              <hr />
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
