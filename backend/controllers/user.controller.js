@@ -65,7 +65,7 @@ const registerUser = async (req, res) => {
         const newUser = await user.save();
         //!give user response
         const token = createToken(newUser._id)
-        res.json({ success: true, token: token })
+        res.json({ success: true, token: token, message: "user has been registered" })
     } catch (error) {
         console.log("registration fail:" + error.message)
         res.status(500).json({ success: false, message: "server error!! registration" })

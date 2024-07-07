@@ -1,11 +1,49 @@
-import React from "react";
+import { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
+import { StoreContext } from "../../context/StoreContext";
+import axios from "axios";
 
 const LoginPopup = ({ setShowLogin }) => {
-  const [currentState, setCurrentState] = React.useState("Login");
+  const { url, token, setToken } = useContext(StoreContext);
+
+  const [currentState, setCurrentState] = useState("Login");
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const onLogin = async (event) => {
+    event.preventDefault();
+    let newUrl = url;
+    if (currentState === "Login") {
+      newUrl += "/api/user/login";
+      const response = await axios.post(newUrl, userData);
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        setShowLogin(false);
+      } else {
+        alert(response.data.message);
+      }
+    } else {
+      newUrl += "/api/user/register";
+      const response = await axios.post(newUrl, userData);
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        setShowLogin(false);
+        alert(response.data.message);
+      } else {
+        alert(response.data.message);
+      }
+    }
+  };
   return (
     <div className='absolute z-10 w-full h-full bg-orange-400 grid rounded-xl'>
-      <form className='place-self-center flex-col gap-6 px-6 py-8 border rounded-e-md rounded-lg bg-orange-100'>
+      <form
+        onSubmit={onLogin}
+        className='place-self-center flex-col gap-6 px-6 py-8 border rounded-e-md rounded-lg bg-orange-100'>
         <div className=' flex justify-between'>
           <h2 className='font-bold text-3xl text-orange-600'>{currentState}</h2>
           <img
@@ -23,20 +61,32 @@ const LoginPopup = ({ setShowLogin }) => {
               type='text'
               placeholder='Name'
               required
+              name='name'
               className='p-2 border-2 border-orange-500 rounded-md text-center '
+              onChange={(e) =>
+                setUserData({ ...userData, name: e.target.value })
+              }
             />
           )}
           <input
             type='email'
             placeholder='Email'
             required
+            name='email'
             className='p-2 border-2 border-orange-500 rounded-md text-center'
+            onChange={(e) =>
+              setUserData({ ...userData, email: e.target.value })
+            }
           />
           <input
             type='password'
             placeholder='Password'
             required
+            name='password'
             className='p-2 border-2 border-orange-500 rounded-md text-center'
+            onChange={(e) =>
+              setUserData({ ...userData, password: e.target.value })
+            }
           />
         </div>
 
