@@ -25,6 +25,11 @@ app.use('/api/user', userRouter);
 app.use("/api/user/cart", cartRoute);
 app.use("/api/order", orderRoute);
 
+//!test the route 
+app.post('/api/order/place', (req, res) => {
+    console.log("received order", req.body);
+})
+
 app.get('/', (req, res) => {
     res.send('API working!!!');
 })
