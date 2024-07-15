@@ -1,5 +1,5 @@
 import express from 'express';
-import { placeOrder, verifyOrder } from '../controllers/oder.controller.js';
+import { placeOrder, userOrder, verifyOrder } from '../controllers/oder.controller.js';
 import authMiddleware from './../middleware/auth.js';
 
 const orderRoute = express.Router();
@@ -9,5 +9,8 @@ orderRoute.post('/place', authMiddleware, placeOrder)
 
 //! verify order
 orderRoute.post('/verify', verifyOrder)
+
+//! user orders
+orderRoute.post('/myorder', authMiddleware, userOrder)
 
 export default orderRoute;
