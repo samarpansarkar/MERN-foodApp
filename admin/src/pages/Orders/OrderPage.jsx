@@ -22,6 +22,16 @@ const OrderPage = () => {
   useEffect(() => {
     fetchData()
   }, [])
+
+  //!api for order status update
+  const orderStatusUpdate = async (event, orderId) => {
+    console.log(event.target.value, orderId);
+    const response = await axios.post(url + "/api/order/status", { orderId, status: event.target.value })
+
+    if (response.data.success) {
+      await fetchData()
+    }
+  }
   return (
     <div className="order add">
       <h3>Order Page</h3>
@@ -50,7 +60,7 @@ const OrderPage = () => {
             </div>
             <p>Item: {order.items.length}</p>
             <p>Amount: ${order.amount}</p>
-            <select>
+            <select onChange={(e) => orderStatusUpdate(e, order._id)} value={order.status}>
               <option value="Food Processing">Food Processing</option>
               <option value="Out for delivery">Out for delivery</option>
               <option value="Delivered">Delivered</option>
@@ -59,7 +69,7 @@ const OrderPage = () => {
         )
         )}
       </div>
-    </div>
+    </div >
   );
 };
 
