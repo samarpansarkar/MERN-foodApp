@@ -1,5 +1,5 @@
 import express from 'express';
-import { placeOrder, userOrder, verifyOrder } from '../controllers/oder.controller.js';
+import { listOrders, placeOrder, userOrder, verifyOrder } from '../controllers/oder.controller.js';
 import authMiddleware from './../middleware/auth.js';
 
 const orderRoute = express.Router();
@@ -12,5 +12,9 @@ orderRoute.post('/verify', verifyOrder)
 
 //! user orders
 orderRoute.post('/myorder', authMiddleware, userOrder)
+
+//!ADMIN
+//!all orders route
+orderRoute.get('/list', listOrders)
 
 export default orderRoute;
