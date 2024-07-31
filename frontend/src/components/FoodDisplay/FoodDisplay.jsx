@@ -10,7 +10,7 @@ const FoodDisplay = ({ category }) => {
         Top dishes near you.
       </h2>
       <div className='grid grid-flow-row-dense grid-cols-5 bg-orange-500 justify-between'>
-        {foodList.map((item) => {
+        {foodList?.map((item) => {
           if (category === "All" || category === item.category) {
             return (
               <FoodItem

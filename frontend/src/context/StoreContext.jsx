@@ -1,10 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-export const StoreContext = createContext(null);
+import { BASE_URL, NODE_ENV } from "../../constant";
 
+
+
+export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
+
   const [cartItems, setCartItems] = useState({});
-  const url = process.env.BACKEND_URL;
+  const url = BASE_URL
   const [token, setToken] = useState("");
   const [foodList, setFoodList] = useState([]);
 
@@ -14,6 +18,7 @@ const StoreContextProvider = (props) => {
     } else {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     }
+    console.log(url)
     if (token) {
       await axios.post(
         url + "/api/user/cart/add",
