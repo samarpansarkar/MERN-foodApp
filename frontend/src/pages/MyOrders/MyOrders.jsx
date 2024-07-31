@@ -7,7 +7,9 @@ import { assets } from './../../assets/assets';
 const MyOrders = () => {
   const [data, setData] = useState([]);
   const { url, token } = useContext(StoreContext);
-
+  useEffect(() => {
+    console.log(window.location)
+  }, [])
   //!Fetch data from api
   const fetchData = async () => {
     const response = await axios.post(

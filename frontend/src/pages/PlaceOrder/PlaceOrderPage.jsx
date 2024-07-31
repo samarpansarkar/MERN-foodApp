@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { STRIPE_REDIRECT_URL } from "../../../constant";
 
 const PlaceOrderPage = () => {
   const { getTotalCartAmount, token, foodList, cartItems, url } =
@@ -33,6 +34,7 @@ const PlaceOrderPage = () => {
       }
     });
     let orderData = {
+      redirectUrl: STRIPE_REDIRECT_URL,
       address: data,
       items: orderItems,
       amount: getTotalCartAmount() + 2,
@@ -44,9 +46,10 @@ const PlaceOrderPage = () => {
     });
 
     if (response.data.success) {
-      alert("Order placed successfully");
+      alert("Order placed successfully this");
       const { session_url } = response.data;
       window.location.replace(session_url);
+      // navigate('/myorders')
     } else {
       alert("Error");
     }
