@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
 import "./AddPage.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { AdminContext } from "../../context/AdminContext";
 
 const AddPage = () => {
-  const url = "http://localhost:4444";
+  const { url } = useContext(AdminContext);
   const [image, setImage] = useState(false);
 
   const [data, setData] = useState({

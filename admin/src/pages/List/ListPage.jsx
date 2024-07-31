@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./ListPage.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useEffect } from "react";
+import { AdminContext } from "../../context/AdminContext";
 
 const ListPage = () => {
-  const url = "http://localhost:4444";
+  const { url } = useContext(AdminContext);
   const [list, setList] = useState([]);
 
   const fetchList = async () => {

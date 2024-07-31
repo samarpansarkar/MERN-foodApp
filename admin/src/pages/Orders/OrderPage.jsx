@@ -2,11 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import "./OrderPage.css";
 import axios from 'axios';
 import { assets } from '../../assets/assets.js';
+import { AdminContext } from "../../context/AdminContext.jsx";
 
 
 const OrderPage = () => {
   const [data, setData] = useState([])
-  const url = "http://localhost:4444";
+  const { url } = useContext(AdminContext);
   //!fetch data from backend
   const fetchData = async () => {
     const response = await axios.get(url + "/api/order/list")
