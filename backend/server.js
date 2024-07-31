@@ -13,7 +13,7 @@ const PORT = process.env.PORT;
 
 //middleware
 app.use(express.json());
-app.use(cors(['http://localhost:4444']));
+app.use(cors([process.env.FRONTEND_URL]));
 
 //!DB connection
 connectDB();
