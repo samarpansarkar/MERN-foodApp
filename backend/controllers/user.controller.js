@@ -37,20 +37,21 @@ const registerUser = async (req, res) => {
     try {
         //!check user already registered
         const userExist = await userModel.findOne({ email });
+
         if (userExist) {
-            return res.status(201).json({
+            return res.status(403).json({
                 success: false,
                 message: "email already exist!!"
             })
         }
         //!validate user email and password
         if (!validator.isEmail(email)) {
-            return res.status(422).json({ success: false, message: "email is not valid" })
+            return res.status(403).json({ success: false, message: "email is not valid" })
         }
         if (password.length < 8) {
-            return res.status(422).json({ success: false, message: "Please enter a strong password" })
+            return res.status(403).json({ success: false, message: "Please enter a strong password" })
         }
-
+        console.log('object')
         //!hashing user password
         const hashedPassword = await bcrypt.hash(password, 10);
 
