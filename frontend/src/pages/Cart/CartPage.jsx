@@ -2,15 +2,17 @@ import React, { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 
+import './CartPage.css'
+
 const CartPage = () => {
   const { cartItems, foodList, removeFromCart, getTotalCartAmount, url } =
     useContext(StoreContext);
 
   const navigate = useNavigate();
   return (
-    <div className='mt-24'>
-      <div className=''>
-        <div className='grid grid-flow-col grid-cols-5 items-center text-lg justify-between'>
+    <div className='cart'>
+      <div className='cart-items'>
+        <div className='cart-item-title'>
           <p>Items</p>
           <p>Title</p>
           <p>Price</p>
@@ -19,18 +21,15 @@ const CartPage = () => {
           <p>Remove</p>
         </div>
         <br />
-        <hr className='border-black' />
+        <hr />
         {foodList.map((item, index) => {
           if (cartItems[item._id] > 0) {
             return (
-              <div key={index} className='bg-orange-400'>
-                <div
-                  className='grid grid-flow-col grid-cols-6 items-center text-lg  text-center mx-3 justify-between py-2  '
-                  key={index}>
+              <div key={index}>
+                <div className='cart-item-title cart-items-item' >
                   <img
                     src={url + "/images/" + item.image}
                     alt={item.name}
-                    className='w-12'
                   />
                   <p>{item.name}</p>
                   <p>$ {item.price}</p>
@@ -40,55 +39,53 @@ const CartPage = () => {
                     onClick={() => {
                       removeFromCart(item._id);
                     }}
-                    className='cursor-pointer'>
+                    className='cross'>
                     x
                   </p>
                 </div>
-                <hr className='border-none h-1 bg-orange-100' />
+                <hr />
               </div>
+
             );
           }
         })}
       </div>
-      <div className='mt-20 flex justify-between gap-5'>
-        <div className='flex-1 flex flex-col gap-5'>
+      <div className='cart-bottom'>
+        <div className='cart-total'>
           <h2>Cart Total</h2>
           <div>
-            <div className='flex justify-between p-2'>
+            <div className='cart-total-details'>
               <p>Subtotal</p>
               <p>$ {getTotalCartAmount()}</p>
             </div>
-            <hr className='border-none h-1 bg-orange-100' />
-            <div className='flex justify-between p-2'>
+            <hr />
+            <div className='cart-total-details'>
               <p>Delivery Fee</p>
               <p>$ {getTotalCartAmount() > 40 ? 20 : 0}</p>
             </div>
-            <hr className='border-none h-1 bg-orange-100' />
-            <div className='flex justify-between p-2'>
+            <hr />
+            <div className='cart-total-details'>
               <b>Total</b>
               <b>
                 $ {getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 10}
               </b>
             </div>
           </div>
-          <button
-            onClick={() => navigate("/order")}
-            className='text-base w-fit px-3 py-2 border-2 border-solid bg-orange-300 border-orange-500 rounded-xl  hover:bg-orange-600 hover:text-white'>
+          <button onClick={() => navigate("/order")}>
             PROCEED TO CHECKOUT
           </button>
         </div>
-        <div className='flex-1'>
+        <div className='cart-promocode'>
           <div>
-            <p className='text-orange-500'>
+            <p >
               If you have a promo code, Enter it here
             </p>
-            <div className='flex gap-4'>
+            <div className='cart-promocode-input'>
               <input
                 type='text'
                 placeholder='Promo Code'
-                className='p-2 border-2 border-orange-500 rounded-md text-center'
               />
-              <button className='text-base px-3 py-2 border-2 border-solid bg-orange-300 border-orange-500 rounded-xl  hover:bg-orange-600 hover:text-white'>
+              <button>
                 APPLY
               </button>
             </div>

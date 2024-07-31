@@ -49,7 +49,7 @@ const LoginPopup = ({ setShowLogin }) => {
     }
   };
   return (
-    <div className='absolute z-10 w-full h-full bg-orange-400 grid rounded-xl'>
+    <div className='absolute z-10 w-full h-full bg-[#00000090] grid rounded-xl'>
       <form
         onSubmit={onLogin}
         className='place-self-center flex-col gap-6 px-6 py-8 border rounded-e-md rounded-lg bg-orange-100'>
