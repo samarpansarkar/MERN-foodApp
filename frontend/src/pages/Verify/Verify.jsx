@@ -21,7 +21,7 @@ const Verify = () => {
 
     console.log(response.data)
     if (response.data.success) {
-      // alert("Payment Successful!");
+      alert("Payment Successful!");
       navigate("/myorders");
     } else {
       alert("Payment Failed!");
