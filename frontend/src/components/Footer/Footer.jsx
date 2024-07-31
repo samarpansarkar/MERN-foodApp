@@ -1,9 +1,10 @@
 import { assets } from "../../assets/assets"
+import './Footer.css'
 
 const Footer = () => {
     return (
-        <div className='text-white bg-orange-500 flex-col items-center px-24 py-3 mt-10 gap-5 h-auto' id='footer'>
-            <div className='w-auto flex justify-between gap-20 '>
+        <div className='text-white bg-gray-800 flex-col items-center px-24 py-3 mt-10 gap-5 h-auto ' id='footer'>
+            <div className='w-auto flex justify-between gap-20 footer-content'>
                 <div className='flex-col p-2 gap-5'>
                     <img src={assets.logo} alt="logo" className="p-1 mb-4" />
                     <p>Reprehenderit anim occaecat non id nostrud quis ad officia ullamco adipisicing aute exercitation in ullamco. Anim nisi Lorem ut sint Lorem exercitation proident laborum deserunt aliqua pariatur amet. Consequat proident quis incididunt ea nostrud dolore occaecat cillum velit pariatur. Sit est incididunt adipisicing reprehenderit irure nulla quis Lorem excepteur ex amet. Voluptate exercitation ipsum aliqua laborum voluptate labore anim fugiat veniam anim veniam aute. Laborum excepteur elit fugiat ex exercitation incididunt consequat eu ex do.</p>
@@ -31,7 +32,7 @@ const Footer = () => {
                 </div>
             </div>
             <hr className="border-2 my-2 rounded-full" />
-            <p className='text-center text-gray-700 text-base'>2024 Tomato Cuisine. All rights reserved.</p>
+            <p className='text-center text-gray-700 text-base footer-copyright'>2024 Tomato Cuisine. All rights reserved.</p>
         </div>
     )
 }

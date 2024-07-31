@@ -19,17 +19,17 @@ const Navbar = ({ showLogin, setShowLogin }) => {
   };
 
   return (
-    <div className='p-20px flex justify-between items-center '>
+    <div className='navbar'>
       <Link to='/'>
-        <img src={assets.logo} alt='Logo' className='w-36' />
+        <img src={assets.logo} alt='Logo' className='logo' />
       </Link>
-      <ul className='flex list-none gap-5 text-[#49557e] text-lg cursor-pointer'>
+      <ul className='navbar-menu'>
         <Link
           to='/'
           onClick={() => setMenu("home")}
           className={
             menu === "home"
-              ? "pb-1 border-b-2 border-solid border-orange-600"
+              ? "active"
               : ""
           }>
           home
@@ -40,7 +40,7 @@ const Navbar = ({ showLogin, setShowLogin }) => {
           onClick={() => setMenu("menu")}
           className={
             menu === "menu"
-              ? "pb-1 border-b-2 border-solid border-orange-600"
+              ? "active"
               : ""
           }>
           menu
@@ -50,7 +50,7 @@ const Navbar = ({ showLogin, setShowLogin }) => {
           onClick={() => setMenu("mobile")}
           className={
             menu === "mobile"
-              ? "pb-1 border-b-2 border-solid border-orange-600"
+              ? "active"
               : ""
           }>
           mobile app
@@ -60,15 +60,15 @@ const Navbar = ({ showLogin, setShowLogin }) => {
           onClick={() => setMenu("contact")}
           className={
             menu === "contact"
-              ? "pb-1 border-b-2 border-solid border-orange-600"
+              ? "active"
               : ""
           }>
           contact us
         </a>
       </ul>
-      <div className='flex items-center gap-10'>
+      <div className='navbar-right'>
         <img src={assets.search_icon} alt='Search' className='relative' />
-        <div className='relative'>
+        <div className='navbar-search-icon'>
           <Link to='/cart'>
             <img src={assets.basket_icon} alt='' />
           </Link>
@@ -76,15 +76,14 @@ const Navbar = ({ showLogin, setShowLogin }) => {
             className={
               getTotalCartAmount() === 0
                 ? ""
-                : "absolute min-w-3 min-h-3 bg-orange-600 border-solid rounded-[50%] top-[-8px] right-[-8px] animate-bounce"
+                : "dot"
             }></div>
         </div>
         {!token ? (
           <button
             onClick={() => {
               showLogin ? setShowLogin(false) : setShowLogin(true);
-            }}
-            className='text-base px-3 py-2 border-2 border-solid border-orange-300 rounded-2xl  hover:bg-orange-600 hover:text-white'>
+            }}>
             Login
           </button>
         ) : (

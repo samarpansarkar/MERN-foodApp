@@ -1,15 +1,16 @@
 import React, { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import FoodItem from "./FoodItem";
+import './FoodDisplay.css'
 
 const FoodDisplay = ({ category }) => {
   const { foodList } = useContext(StoreContext);
   return (
-    <div className='mt-8' id='food-display'>
-      <h2 className='font-bold text-2xl mb-6 text-orange-500'>
+    <div className='food-display' id='food-display'>
+      <h2>
         Top dishes near you.
       </h2>
-      <div className='grid grid-flow-row-dense grid-cols-5 bg-orange-500 justify-between'>
+      <div className='food-display-list'>
         {foodList?.map((item) => {
           if (category === "All" || category === item.category) {
             return (

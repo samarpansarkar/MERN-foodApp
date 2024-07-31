@@ -16,7 +16,7 @@ const App = () => {
   return (
     <>
       {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
-      <div className='w-10/12 m-auto pt-4'>
+      <div className='app'>
         <Navbar showLogin={showLogin} setShowLogin={setShowLogin} />
         <Routes>
           <Route path='/' element={<HomePage />} />
