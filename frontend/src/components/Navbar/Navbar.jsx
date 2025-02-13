@@ -21,62 +21,31 @@ const Navbar = ({ showLogin, setShowLogin }) => {
   return (
     <div className='navbar'>
       <Link to='/'>
-        <img src={assets.logo} alt='Logo' className='logo' />
+        <h1 className='text-3xl font-bold text-emerald-600'>SpaNFood</h1>
       </Link>
       <ul className='navbar-menu'>
-        <Link
-          to='/'
+        <a
+          href='/'
           onClick={() => setMenu("home")}
-          className={
-            menu === "home"
-              ? "active"
-              : ""
-          }>
+          className={menu === "home" ? "active" : ""}>
           home
-        </Link>{" "}
+        </a>{" "}
         {/*  pb-1 border-b-2 border-solid border-orange-600 */}
         <a
           href='#explore-menu'
           onClick={() => setMenu("menu")}
-          className={
-            menu === "menu"
-              ? "active"
-              : ""
-          }>
+          className={menu === "menu" ? "active" : ""}>
           menu
-        </a>
-        <a
-          href='#app-download'
-          onClick={() => setMenu("mobile")}
-          className={
-            menu === "mobile"
-              ? "active"
-              : ""
-          }>
-          mobile app
-        </a>
-        <a
-          href='#footer'
-          onClick={() => setMenu("contact")}
-          className={
-            menu === "contact"
-              ? "active"
-              : ""
-          }>
-          contact us
         </a>
       </ul>
       <div className='navbar-right'>
-        <img src={assets.search_icon} alt='Search' className='relative' />
         <div className='navbar-search-icon'>
           <Link to='/cart'>
             <img src={assets.basket_icon} alt='' />
           </Link>
           <div
             className={
-              getTotalCartAmount() === 0
-                ? ""
-                : "dot"
+              getTotalCartAmount() === 0 ? "" : "dot bg-emerald-500"
             }></div>
         </div>
         {!token ? (
@@ -90,7 +59,7 @@ const Navbar = ({ showLogin, setShowLogin }) => {
           <div className='navbar-profile'>
             <img src={assets.profile_icon} alt='profile' />
             <ul className='navbar-profile-dropdown'>
-              <li onClick={() => navigate('/myorders')}>
+              <li onClick={() => navigate("/myorders")}>
                 <img src={assets.bag_icon} alt='' />
                 <p>Orders</p>
               </li>

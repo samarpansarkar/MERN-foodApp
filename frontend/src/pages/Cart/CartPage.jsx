@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 
-import './CartPage.css'
+import "./CartPage.css";
 
 const CartPage = () => {
   const { cartItems, foodList, removeFromCart, getTotalCartAmount, url } =
@@ -26,11 +26,8 @@ const CartPage = () => {
           if (cartItems[item._id] > 0) {
             return (
               <div key={index}>
-                <div className='cart-item-title cart-items-item' >
-                  <img
-                    src={url + "/images/" + item.image}
-                    alt={item.name}
-                  />
+                <div className='cart-item-title cart-items-item'>
+                  <img src={url + "/images/" + item.image} alt={item.name} />
                   <p>{item.name}</p>
                   <p>$ {item.price}</p>
                   <p>{cartItems[item._id]}</p>
@@ -45,7 +42,6 @@ const CartPage = () => {
                 </div>
                 <hr />
               </div>
-
             );
           }
         })}
@@ -71,23 +67,16 @@ const CartPage = () => {
               </b>
             </div>
           </div>
-          <button onClick={() => navigate("/order")}>
+          <button onClick={() => navigate("/order")} className='bg-emerald-500'>
             PROCEED TO CHECKOUT
           </button>
         </div>
         <div className='cart-promocode'>
           <div>
-            <p >
-              If you have a promo code, Enter it here
-            </p>
+            <p>If you have a promo code, Enter it here</p>
             <div className='cart-promocode-input'>
-              <input
-                type='text'
-                placeholder='Promo Code'
-              />
-              <button>
-                APPLY
-              </button>
+              <input type='text' placeholder='Promo Code' />
+              <button className='bg-emerald-500'>APPLY</button>
             </div>
           </div>
         </div>

@@ -28,7 +28,7 @@ const LoginPopup = ({ setShowLogin }) => {
       }
     } else {
       newUrl += "/api/user/register";
-      console.log(newUrl)
+      console.log(newUrl);
       let response;
       try {
         response = await axios.post(newUrl, userData);
@@ -37,7 +37,6 @@ const LoginPopup = ({ setShowLogin }) => {
       }
 
       if (response.data.success) {
-
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
 
@@ -49,12 +48,14 @@ const LoginPopup = ({ setShowLogin }) => {
     }
   };
   return (
-    <div className='absolute z-10 w-full h-full bg-[#00000090] grid rounded-xl'>
+    <div className='absolute z-10 w-full h-full bg-[#00000090] grid rounded-xl disabled:overflow-x-scroll'>
       <form
         onSubmit={onLogin}
-        className='place-self-center flex-col gap-6 px-6 py-8 border rounded-e-md rounded-lg bg-orange-100'>
+        className='place-self-center flex-col gap-6 px-6 py-8 border rounded-e-md rounded-lg bg-emerald-200'>
         <div className=' flex justify-between'>
-          <h2 className='font-bold text-3xl text-orange-600'>{currentState}</h2>
+          <h2 className='font-bold text-3xl text-emerald-600'>
+            {currentState}
+          </h2>
           <img
             onClick={() => setShowLogin(false)}
             src={assets.cross_icon}
@@ -71,7 +72,7 @@ const LoginPopup = ({ setShowLogin }) => {
               placeholder='Name'
               required
               name='name'
-              className='p-2 border-2 border-orange-500 rounded-md text-center '
+              className='p-2 border-2 border-emerald-500 rounded-md text-center '
               onChange={(e) =>
                 setUserData({ ...userData, name: e.target.value })
               }
@@ -82,7 +83,7 @@ const LoginPopup = ({ setShowLogin }) => {
             placeholder='Email'
             required
             name='email'
-            className='p-2 border-2 border-orange-500 rounded-md text-center'
+            className='p-2 border-2 border-emerald-500 rounded-md text-center'
             onChange={(e) =>
               setUserData({ ...userData, email: e.target.value })
             }
@@ -92,7 +93,7 @@ const LoginPopup = ({ setShowLogin }) => {
             placeholder='Password'
             required
             name='password'
-            className='p-2 border-2 border-orange-500 rounded-md text-center'
+            className='p-2 border-2 border-emerald-500 rounded-md text-center'
             onChange={(e) =>
               setUserData({ ...userData, password: e.target.value })
             }
@@ -107,7 +108,7 @@ const LoginPopup = ({ setShowLogin }) => {
         </div>
         <button
           type='submit'
-          className='text-base w-full px-3 py-2 border-2 border-solid bg-orange-300 border-orange-500 rounded-xl  hover:bg-orange-600 hover:text-white'>
+          className='text-base w-full px-3 py-2 border-2 border-solid bg-emerald-500 border-emerald-800 rounded-xl  hover:bg-emerald-600 hover:text-white'>
           {currentState === "Sign Up" ? "Create Account" : "Login"}
         </button>
         <div className='mt-4'>
@@ -116,7 +117,7 @@ const LoginPopup = ({ setShowLogin }) => {
               Already have an account?{" "}
               <span
                 onClick={() => setCurrentState("Login")}
-                className='cursor-pointer text-orange-600 font-semibold'>
+                className='cursor-pointer text-red-500 font-semibold'>
                 Click here.
               </span>
             </p>
@@ -125,7 +126,7 @@ const LoginPopup = ({ setShowLogin }) => {
               Don't have an account?{" "}
               <span
                 onClick={() => setCurrentState("Sign Up")}
-                className='cursor-pointer text-orange-600 font-semibold'>
+                className='cursor-pointer text-red-500 font-semibold'>
                 Create account.
               </span>
             </p>

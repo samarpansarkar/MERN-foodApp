@@ -1,21 +1,30 @@
 .header {
   height: 34vw;
-  margin: 30px auto;
-  background: url("/header_img.png") no-repeat;
+  margin: 20px auto;
+  background: url("../../assets/headerImg.jpg") no-repeat center center;
   background-size: contain;
   position: relative;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-contents {
-  position: absolute;
+  /* position: absolute; */
   display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   flex-direction: column;
   align-items: start;
+  padding-left: 60px;
   gap: 1.5vw;
   max-width: 50%;
   bottom: 10%;
   left: 6vw;
   animation: fadeIn 3s;
+  align-items: center;
 }
 
 .header-contents h2 {
@@ -29,7 +38,7 @@
   font-size: 1vw;
 }
 
-.header-contents button {
+.header-contents a {
   border: none;
   color: #747474;
   font-weight: 500;
@@ -52,7 +61,7 @@
   .header-contents p {
     display: none;
   }
-  .header-contents button {
+  .header-contents a {
     padding: 2vw 4vw;
   }
 }
