@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../../assets/assets.js";
+import { IoIosCart } from "react-icons/io";
 import { useContext, useState } from "react";
 import { StoreContext } from "../../context/StoreContext.jsx";
 
@@ -40,8 +41,8 @@ const Navbar = ({ showLogin, setShowLogin }) => {
       </ul>
       <div className='navbar-right'>
         <div className='navbar-search-icon'>
-          <Link to='/cart'>
-            <img src={assets.basket_icon} alt='' />
+          <Link to='/cart' className='text-emerald-600'>
+            <IoIosCart size={30} />
           </Link>
           <div
             className={

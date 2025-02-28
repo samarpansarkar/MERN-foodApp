@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import { assets } from "../../assets/assets";
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa6";
 import { StoreContext } from "../../context/StoreContext";
 import "./FoodItem.css";
 
@@ -40,7 +42,13 @@ const FoodItem = ({ id, name, price, description, image }) => {
       <div className='food-item-info'>
         <div className='food-item-name-rating'>
           <p>{name}</p>
-          <img src={assets.rating_starts} alt='rating' className='p-1' />
+          <div className='flex hover:text-emerald-500 duration-700'>
+            <FaStar />
+            <FaStar />
+            <FaStar />
+            <FaStarHalfAlt />
+            <FaRegStar />
+          </div>
         </div>
         <p className='food-item-desc'>{description}</p>
         <p className='food-item-price text-emerald-500'>$ {price}</p>

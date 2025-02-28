@@ -5,8 +5,6 @@ import HomePage from "./pages/Home/HomePage";
 import ErrorPage from "./ErrorPage";
 import CartPage from "./pages/Cart/CartPage";
 import PlaceOrderPage from "./pages/PlaceOrder/PlaceOrderPage";
-import Footer from "./components/Footer/Footer";
-import AppDownload from "./components/AppDownload/AppDownload";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/MyOrders/MyOrders";
@@ -27,8 +25,6 @@ const App = () => {
           <Route path='*' element={<ErrorPage />} />
         </Routes>
       </div>
-      <AppDownload />
-      <Footer />
     </>
   );
 };
