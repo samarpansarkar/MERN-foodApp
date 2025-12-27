@@ -1,12 +1,14 @@
-import express from 'express';
-import { loginUser, registerUser } from '../controllers/user.controller.js';
+import express from "express";
+import { loginUser, registerUser } from "../controllers/user.controller.js";
+import { validateRegister, validateLogin } from "../middleware/validation.js";
+import { authLimiter } from "../middleware/rateLimiter.js";
 
 const userRouter = express.Router();
 
-//!User Registration route
-userRouter.post('/register', registerUser);
+//!User Registration route - with validation and rate limiting
+userRouter.post("/register", authLimiter, validateRegister, registerUser);
 
-//!User Login route
-userRouter.post('/login', loginUser);
+//!User Login route - with validation and rate limiting
+userRouter.post("/login", authLimiter, validateLogin, loginUser);
 
-export default userRouter
+export default userRouter;

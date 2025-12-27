@@ -8,11 +8,13 @@ import PlaceOrderPage from "./pages/PlaceOrder/PlaceOrderPage";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/MyOrders/MyOrders";
+import ToastProvider from "./components/UI/ToastProvider";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   return (
     <>
+      <ToastProvider />
       {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
       <div className='app'>
         <Navbar showLogin={showLogin} setShowLogin={setShowLogin} />

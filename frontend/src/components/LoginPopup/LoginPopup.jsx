@@ -1,12 +1,15 @@
 import { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
+import Button from "../UI/Button";
+import LoadingSpinner from "../UI/LoadingSpinner";
 import axios from "axios";
 
 const LoginPopup = ({ setShowLogin }) => {
-  const { url, token, setToken } = useContext(StoreContext);
-
+  const { url, setToken } = useContext(StoreContext);
   const [currentState, setCurrentState] = useState("Login");
+  const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -15,120 +18,195 @@ const LoginPopup = ({ setShowLogin }) => {
 
   const onLogin = async (event) => {
     event.preventDefault();
-    let newUrl = url;
-    if (currentState === "Login") {
-      newUrl += "/api/user/login";
-      const response = await axios.post(newUrl, userData);
-      if (response.data.success) {
-        setToken(response.data.token);
-        localStorage.setItem("token", response.data.token);
-        setShowLogin(false);
-      } else {
-        alert(response.data.message);
-      }
-    } else {
-      newUrl += "/api/user/register";
-      console.log(newUrl);
+    setLoading(true);
+
+    try {
+      let newUrl = url;
       let response;
-      try {
+
+      if (currentState === "Login") {
+        newUrl += "/api/user/login";
         response = await axios.post(newUrl, userData);
-      } catch (error) {
-        console.log(error);
-      }
 
-      if (response.data.success) {
-        setToken(response.data.token);
-        localStorage.setItem("token", response.data.token);
-
-        setShowLogin(false);
-        alert(response.data.message);
+        if (response.data.success) {
+          toast.success("Welcome back! 🎉");
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+          setShowLogin(false);
+        } else {
+          toast.error(response.data.message || "Login failed");
+        }
       } else {
-        alert(response.data.message);
+        newUrl += "/api/user/register";
+        response = await axios.post(newUrl, userData);
+
+        if (response.data.success) {
+          toast.success("Account created successfully! 🎉");
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+          setShowLogin(false);
+        } else {
+          toast.error(response.data.message || "Registration failed");
+        }
       }
+    } catch (error) {
+      const errorMsg = error.response?.data?.message ||
+        error.response?.data?.errors?.[0]?.message ||
+        "Something went wrong. Please try again.";
+      toast.error(errorMsg);
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
-    <div className='absolute z-10 w-full h-full bg-[#00000090] grid rounded-xl disabled:overflow-x-scroll'>
+    <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in'>
       <form
         onSubmit={onLogin}
-        className='place-self-center flex-col gap-6 px-6 py-8 border rounded-e-md rounded-lg bg-emerald-200'>
-        <div className=' flex justify-between'>
-          <h2 className='font-bold text-3xl text-emerald-600'>
+        className='relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 mx-4 animate-scale-in'
+      >
+        {/* Close button */}
+        <button
+          type="button"
+          onClick={() => setShowLogin(false)}
+          className='absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors'
+        >
+          <img src={assets.cross_icon} alt='Close' className='w-4 h-4' />
+        </button>
+
+        {/* Header */}
+        <div className='mb-6'>
+          <h2 className='text-3xl font-bold text-gray-900 mb-1'>
             {currentState}
           </h2>
-          <img
-            onClick={() => setShowLogin(false)}
-            src={assets.cross_icon}
-            alt=''
-            className='p-2 cursor-pointer'
-          />
-        </div>
-        <div className='flex flex-col mt-6 gap-5 p-1 my-4 justify-center'>
-          {currentState === "Login" ? (
-            <></>
-          ) : (
-            <input
-              type='text'
-              placeholder='Name'
-              required
-              name='name'
-              className='p-2 border-2 border-emerald-500 rounded-md text-center '
-              onChange={(e) =>
-                setUserData({ ...userData, name: e.target.value })
-              }
-            />
-          )}
-          <input
-            type='email'
-            placeholder='Email'
-            required
-            name='email'
-            className='p-2 border-2 border-emerald-500 rounded-md text-center'
-            onChange={(e) =>
-              setUserData({ ...userData, email: e.target.value })
-            }
-          />
-          <input
-            type='password'
-            placeholder='Password'
-            required
-            name='password'
-            className='p-2 border-2 border-emerald-500 rounded-md text-center'
-            onChange={(e) =>
-              setUserData({ ...userData, password: e.target.value })
-            }
-          />
-        </div>
-
-        <div className='flex gap-2 font-bold my-4'>
-          <input type='checkbox' required />
-          <p>
-            By continuing, I agree to the terms of the use and privacy policy.
+          <p className='text-gray-600 text-sm'>
+            {currentState === "Login"
+              ? "Welcome back! Please login to continue"
+              : "Create an account to get started"}
           </p>
         </div>
-        <button
-          type='submit'
-          className='text-base w-full px-3 py-2 border-2 border-solid bg-emerald-500 border-emerald-800 rounded-xl  hover:bg-emerald-600 hover:text-white'>
-          {currentState === "Sign Up" ? "Create Account" : "Login"}
-        </button>
-        <div className='mt-4'>
-          {currentState === "Sign Up" ? (
-            <p className=''>
-              Already have an account?{" "}
-              <span
-                onClick={() => setCurrentState("Login")}
-                className='cursor-pointer text-red-500 font-semibold'>
-                Click here.
+
+        {/* Form Fields */}
+        <div className='space-y-4'>
+          {currentState === "Sign Up" && (
+            <div>
+              <label className='block text-sm font-medium text-gray-700 mb-1'>
+                Full Name
+              </label>
+              <input
+                type='text'
+                placeholder='John Doe'
+                required
+                name='name'
+                value={userData.name}
+                className='w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all'
+                onChange={(e) =>
+                  setUserData({ ...userData, name: e.target.value })
+                }
+              />
+            </div>
+          )}
+
+          <div>
+            <label className='block text-sm font-medium text-gray-700 mb-1'>
+              Email Address
+            </label>
+            <input
+              type='email'
+              placeholder='you@example.com'
+              required
+              name='email'
+              value={userData.email}
+              className='w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all'
+              onChange={(e) =>
+                setUserData({ ...userData, email: e.target.value })
+              }
+            />
+          </div>
+
+          <div>
+            <label className='block text-sm font-medium text-gray-700 mb-1'>
+              Password
+            </label>
+            <input
+              type='password'
+              placeholder='••••••••'
+              required
+              name='password'
+              value={userData.password}
+              className='w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all'
+              onChange={(e) =>
+                setUserData({ ...userData, password: e.target.value })
+              }
+            />
+            {currentState === "Sign Up" && (
+              <p className='text-xs text-gray-500 mt-1'>
+                Must be at least 8 characters with uppercase, lowercase & number
+              </p>
+            )}
+          </div>
+
+          {/* Terms checkbox */}
+          <div className='flex items-start gap-2'>
+            <input
+              type='checkbox'
+              required
+              className='mt-1 w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500'
+            />
+            <p className='text-sm text-gray-600'>
+              I agree to the{" "}
+              <span className='text-primary-600 hover:underline cursor-pointer'>
+                Terms of Service
+              </span>{" "}
+              and{" "}
+              <span className='text-primary-600 hover:underline cursor-pointer'>
+                Privacy Policy
               </span>
             </p>
+          </div>
+        </div>
+
+        {/* Submit Button */}
+        <Button
+          type='submit'
+          variant='primary'
+          className='w-full mt-6'
+          loading={loading}
+          disabled={loading}
+        >
+          {loading ? (
+            <span className="flex items-center gap-2">
+              <LoadingSpinner size="sm" color="white" />
+              Processing...
+            </span>
           ) : (
-            <p className=''>
+            currentState === "Sign Up" ? "Create Account" : "Login"
+          )}
+        </Button>
+
+        {/* Toggle State */}
+        <div className='mt-6 text-center text-sm'>
+          {currentState === "Sign Up" ? (
+            <p className='text-gray-600'>
+              Already have an account?{" "}
+              <button
+                type="button"
+                onClick={() => setCurrentState("Login")}
+                className='text-primary-600 font-semibold hover:text-primary-700 hover:underline'
+              >
+                Login here
+              </button>
+            </p>
+          ) : (
+            <p className='text-gray-600'>
               Don't have an account?{" "}
-              <span
+              <button
+                type="button"
                 onClick={() => setCurrentState("Sign Up")}
-                className='cursor-pointer text-red-500 font-semibold'>
-                Create account.
-              </span>
+                className='text-primary-600 font-semibold hover:text-primary-700 hover:underline'
+              >
+                Sign up
+              </button>
             </p>
           )}
         </div>

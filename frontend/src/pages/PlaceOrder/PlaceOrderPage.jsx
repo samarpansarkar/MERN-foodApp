@@ -40,7 +40,6 @@ const PlaceOrderPage = () => {
       items: orderItems,
       amount: getTotalCartAmount() + 2,
     };
-    console.log("Sending order data:", orderData); //! Debug: Check if orderData is correctly populated
     //! backend connection
     const response = await axios.post(url + "/api/order/place", orderData, {
       headers: { token },
