@@ -1,14 +1,25 @@
-import React, { useContext } from "react";
-import { StoreContext } from "../../context/StoreContext";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { selectCartItems, selectCartTotalAmount, syncRemoveFromCart } from "../../redux/slices/cartSlice";
+import { selectAllFood } from "../../redux/slices/foodSlice";
+import { selectToken } from "../../redux/slices/userSlice";
+import { BASE_API } from "../../constant";
 
 const CartPage = () => {
-  const { cartItems, foodList, removeFromCart, getTotalCartAmount, url } =
-    useContext(StoreContext);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cartItems = useSelector(selectCartItems);
+  const foodList = useSelector(selectAllFood);
+  const token = useSelector(selectToken);
+  const totalAmount = useSelector(selectCartTotalAmount);
+  const url = BASE_API;
+
+  const removeFromCart = (itemId) => {
+    dispatch(syncRemoveFromCart({ itemId, token }));
+  };
+
+  const getTotalCartAmount = () => totalAmount;
   return (
     <div className='mt-24 animate-fade-in'>
       <div className='mb-12'>

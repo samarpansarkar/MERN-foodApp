@@ -1,11 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Modal from '../UI/Modal';
 import Button from '../UI/Button';
-import { StoreContext } from '../../context/StoreContext';
 import { FiLoader, FiMinus, FiPlus, FiShoppingCart } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
+import { syncAddToCart } from '../../redux/slices/cartSlice';
+import { selectToken } from '../../redux/slices/userSlice';
+import { BASE_API } from '../../constant';
 
 const FoodDetailsModal = ({ isOpen, onClose, foodItem }) => {
-    const { addToCart, url } = useContext(StoreContext);
+    const dispatch = useDispatch();
+    const token = useSelector(selectToken);
+    const url = BASE_API;
+
     const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState('Medium');
     const [addons, setAddons] = useState([]);
@@ -32,10 +38,11 @@ const FoodDetailsModal = ({ isOpen, onClose, foodItem }) => {
 
     const handleAddToCart = async () => {
         setIsAdding(true);
-        await new Promise(resolve => setTimeout(resolve, 600));
+        // Simulate network delay for UX if desired, or let the thunk handle loading state
+        // await new Promise(resolve => setTimeout(resolve, 600));
 
         for (let i = 0; i < quantity; i++) {
-            await addToCart(foodItem._id);
+            await dispatch(syncAddToCart({ itemId: foodItem._id, token }));
         }
 
         setIsAdding(false);

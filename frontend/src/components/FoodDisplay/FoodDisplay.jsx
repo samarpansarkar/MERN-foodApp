@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
-import { StoreContext } from "../../context/StoreContext";
+import { useSelector } from "react-redux";
+import { selectFilteredFood, selectFoodStatus, selectSearchQuery } from "../../redux/slices/foodSlice";
+import FilterBar from "../Filters/FilterBar";
 import FoodItem from "./FoodItem";
 import FoodItemSkeleton from "../Skeletons/FoodItemSkeleton";
-import FilterBar from "../Filters/FilterBar";
 import { FiSearch } from "react-icons/fi";
 
-
 const FoodDisplay = ({ category }) => {
-  const { filteredFoodList, loading, searchQuery } = useContext(StoreContext);
+  const filteredFoodList = useSelector(selectFilteredFood);
+  const status = useSelector(selectFoodStatus);
+  const searchQuery = useSelector(selectSearchQuery);
+  const loading = status === 'loading';
 
   const finalDisplayList = filteredFoodList.filter(item => {
     if (category === "All") return true;

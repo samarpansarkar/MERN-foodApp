@@ -1,13 +1,21 @@
-import { useContext, useEffect, useState } from "react";
-import { StoreContext } from "../../context/StoreContext";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import { STRIPE_REDIRECT_URL } from "../../../constant";
+import { useSelector } from "react-redux";
+import { selectCartItems, selectCartTotalAmount } from "../../redux/slices/cartSlice";
+import { selectAllFood } from "../../redux/slices/foodSlice";
+import { selectToken } from "../../redux/slices/userSlice";
+import { STRIPE_REDIRECT_URL, BASE_API } from "../../constant";
 
 
 const PlaceOrderPage = () => {
-  const { getTotalCartAmount, token, foodList, cartItems, url } =
-    useContext(StoreContext);
+  const cartItems = useSelector(selectCartItems);
+  const foodList = useSelector(selectAllFood);
+  const token = useSelector(selectToken);
+  const totalAmount = useSelector(selectCartTotalAmount);
+  const url = BASE_API;
+
+  const getTotalCartAmount = () => totalAmount;
   const [data, setData] = useState({
     firstName: "",
     lastName: "",

@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { StoreContext } from "../../context/StoreContext";
+import React, { useEffect, useState } from "react";
 import { HiOutlineShoppingBag, HiChevronDown, HiChevronUp } from "react-icons/hi";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 import Button from "../../components/UI/Button";
@@ -7,12 +6,16 @@ import OrderTimeline from "../../components/OrderTimeline/OrderTimeline";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { assets } from './../../assets/assets';
+import { useSelector } from "react-redux";
+import { selectToken } from "../../redux/slices/userSlice";
+import { BASE_API } from "../../constant";
 
 const MyOrders = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expandedOrderId, setExpandedOrderId] = useState(null);
-  const { url, token } = useContext(StoreContext);
+  const token = useSelector(selectToken);
+  const url = BASE_API;
   const navigate = useNavigate();
 
   const fetchData = async () => {

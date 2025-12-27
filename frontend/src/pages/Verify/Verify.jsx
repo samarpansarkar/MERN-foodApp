@@ -1,15 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
-import { StoreContext } from "../../context/StoreContext";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 import axios from "axios";
+import { BASE_API } from "../../constant";
 
 const Verify = () => {
   const [searchParams] = useSearchParams();
   const success = searchParams.get("success");
   const orderId = searchParams.get("orderId");
-  const { url } = useContext(StoreContext);
+  const url = BASE_API;
   const navigate = useNavigate();
   const [verifying, setVerifying] = useState(true);
 

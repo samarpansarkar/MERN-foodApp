@@ -2,33 +2,35 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoIosCart } from "react-icons/io";
 import { FiUser, FiSearch } from "react-icons/fi";
 import { HiOutlineShoppingBag, HiOutlineLogout } from "react-icons/hi";
-import { useContext, useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
-import { StoreContext } from "../../context/StoreContext.jsx";
+import { useSelector, useDispatch } from "react-redux";
 import Button from "../UI/Button";
 import useDebounce from "../../hooks/useDebounce.js";
-import { useEffect } from "react";
+import { selectCartItemCount } from "../../redux/slices/cartSlice.js";
+import { selectToken, logout } from "../../redux/slices/userSlice.js";
+import { setSearchQuery } from "../../redux/slices/foodSlice.js";
 
 const Navbar = ({ showLogin, setShowLogin }) => {
   const [menu, setMenu] = useState("home");
   const [showSearch, setShowSearch] = useState(false);
   const [localSearch, setLocalSearch] = useState("");
 
-  const { getTotalCartAmount, token, setToken, cartItems, setSearchQuery } = useContext(StoreContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const cartItemCount = useSelector(selectCartItemCount);
+  const token = useSelector(selectToken);
 
   const debouncedSearch = useDebounce(localSearch, 500);
 
   useEffect(() => {
-    setSearchQuery(debouncedSearch);
-  }, [debouncedSearch, setSearchQuery]);
+    dispatch(setSearchQuery(debouncedSearch));
+  }, [debouncedSearch, dispatch]);
 
-  const cartItemCount = Object.values(cartItems || {}).reduce((acc, qty) => acc + qty, 0);
-
-  const logOut = () => {
-    setToken(null);
-    localStorage.removeItem("token");
+  const handleLogout = () => {
+    dispatch(logout());
     toast.success("Logged out successfully");
     navigate("/");
   };
@@ -112,7 +114,7 @@ const Navbar = ({ showLogin, setShowLogin }) => {
                   <p className='text-gray-700 font-medium'>My Orders</p>
                 </li>
                 <hr className='my-1 border-gray-200' />
-                <li onClick={logOut} className='flex items-center gap-3 px-4 py-3 hover:bg-red-50 cursor-pointer transition-colors'>
+                <li onClick={handleLogout} className='flex items-center gap-3 px-4 py-3 hover:bg-red-50 cursor-pointer transition-colors'>
                   <HiOutlineLogout size={20} className='text-red-600' />
                   <p className='text-red-600 font-medium'>Logout</p>
                 </li>

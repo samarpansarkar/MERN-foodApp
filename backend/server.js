@@ -62,7 +62,14 @@ app.use("/api/", apiLimiter);
 connectDB();
 
 app.use("/api/food", foodRouter);
-app.use("/images", express.static("uploads"));
+app.use(
+  "/images",
+  express.static("uploads", {
+    setHeaders: (res, path, stat) => {
+      res.set("Cross-Origin-Resource-Policy", "cross-origin");
+    },
+  })
+);
 app.use("/api/user", userRouter);
 app.use("/api/user/cart", cartRoute);
 app.use("/api/order", orderRoute);

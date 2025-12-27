@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { menu_list } from "../../assets/assets";
-import { StoreContext } from "../../context/StoreContext";
 import MenuSkeleton from "../Skeletons/MenuSkeleton";
+import { useSelector } from "react-redux";
+import { selectFoodStatus } from "../../redux/slices/foodSlice";
 
 const ExploreMenu = ({ category, setCategory }) => {
-  const { loading } = useContext(StoreContext);
+  const status = useSelector(selectFoodStatus);
+  const loading = status === 'loading';
 
   return (
     <div className='flex flex-col gap-5' id='explore-menu'>
@@ -40,21 +42,21 @@ const ExploreMenu = ({ category, setCategory }) => {
                 className='cursor-pointer flex-shrink-0 snap-center group'
               >
                 <div className={`relative p-1 rounded-full transition-all duration-200 ${category === item.menu_name
-                    ? "bg-gradient-to-tr from-primary-500 to-primary-600 shadow-md scale-105"
-                    : "bg-transparent group-hover:bg-gray-100"
+                  ? "bg-gradient-to-tr from-primary-500 to-primary-600 shadow-md scale-105"
+                  : "bg-transparent group-hover:bg-gray-100"
                   }`}>
                   <img
                     className={`w-[7.5vw] min-w-[80px] h-[7.5vw] min-h-[80px] object-cover rounded-full transition-all duration-300 ${category === item.menu_name
-                        ? "border-4 border-white"
-                        : ""
+                      ? "border-4 border-white"
+                      : ""
                       }`}
                     src={item.menu_image}
                     alt={item.menu_name}
                   />
                 </div>
                 <p className={`mt-3 text-[max(1.4vw,16px)] transition-colors duration-200 ${category === item.menu_name
-                    ? "text-primary-600 font-semibold"
-                    : "text-gray-500 group-hover:text-gray-900"
+                  ? "text-primary-600 font-semibold"
+                  : "text-gray-500 group-hover:text-gray-900"
                   }`}>
                   {item.menu_name}
                 </p>

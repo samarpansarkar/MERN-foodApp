@@ -9,9 +9,24 @@ import LoginPopup from "./components/LoginPopup/LoginPopup";
 import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import ToastProvider from "./components/UI/ToastProvider";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFoodList } from "./redux/slices/foodSlice";
+import { fetchCartData } from "./redux/slices/cartSlice";
+import { selectToken } from "./redux/slices/userSlice";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
+
+  useEffect(() => {
+    dispatch(fetchFoodList());
+    if (token) {
+      dispatch(fetchCartData(token));
+    }
+  }, [dispatch, token]);
+
   return (
     <>
       <ToastProvider />

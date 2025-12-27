@@ -1,13 +1,16 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { assets } from "../../assets/assets";
-import { StoreContext } from "../../context/StoreContext";
 import Button from "../UI/Button";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../redux/slices/userSlice";
+import { BASE_API } from "../../constant";
 
 const LoginPopup = ({ setShowLogin }) => {
-  const { url, setToken } = useContext(StoreContext);
+  const dispatch = useDispatch();
+  const url = BASE_API;
   const [currentState, setCurrentState] = useState("Login");
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
@@ -30,8 +33,7 @@ const LoginPopup = ({ setShowLogin }) => {
 
         if (response.data.success) {
           toast.success("Welcome back! 🎉");
-          setToken(response.data.token);
-          localStorage.setItem("token", response.data.token);
+          dispatch(setToken(response.data.token));
           setShowLogin(false);
         } else {
           toast.error(response.data.message || "Login failed");
@@ -42,8 +44,7 @@ const LoginPopup = ({ setShowLogin }) => {
 
         if (response.data.success) {
           toast.success("Account created successfully! 🎉");
-          setToken(response.data.token);
-          localStorage.setItem("token", response.data.token);
+          dispatch(setToken(response.data.token));
           setShowLogin(false);
         } else {
           toast.error(response.data.message || "Registration failed");
@@ -65,7 +66,6 @@ const LoginPopup = ({ setShowLogin }) => {
         onSubmit={onLogin}
         className='relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 mx-4 animate-scale-in'
       >
-        {/* Close button */}
         <button
           type="button"
           onClick={() => setShowLogin(false)}
@@ -74,7 +74,6 @@ const LoginPopup = ({ setShowLogin }) => {
           <img src={assets.cross_icon} alt='Close' className='w-4 h-4' />
         </button>
 
-        {/* Header */}
         <div className='mb-6'>
           <h2 className='text-3xl font-bold text-gray-900 mb-1'>
             {currentState}
@@ -86,7 +85,6 @@ const LoginPopup = ({ setShowLogin }) => {
           </p>
         </div>
 
-        {/* Form Fields */}
         <div className='space-y-4'>
           {currentState === "Sign Up" && (
             <div>
@@ -146,7 +144,6 @@ const LoginPopup = ({ setShowLogin }) => {
             )}
           </div>
 
-          {/* Terms checkbox */}
           <div className='flex items-start gap-2'>
             <input
               type='checkbox'
@@ -166,7 +163,6 @@ const LoginPopup = ({ setShowLogin }) => {
           </div>
         </div>
 
-        {/* Submit Button */}
         <Button
           type='submit'
           variant='primary'
@@ -184,7 +180,6 @@ const LoginPopup = ({ setShowLogin }) => {
           )}
         </Button>
 
-        {/* Toggle State */}
         <div className='mt-6 text-center text-sm'>
           {currentState === "Sign Up" ? (
             <p className='text-gray-600'>

@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
-import StoreContextProvider from './context/StoreContext.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
+import { Provider } from 'react-redux'
+import store from './redux/store.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <StoreContextProvider>
+    <Provider store={store}>
       <App />
-    </StoreContextProvider>
+    </Provider>
   </BrowserRouter>,
 )
