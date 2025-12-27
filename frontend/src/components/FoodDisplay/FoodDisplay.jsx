@@ -28,7 +28,7 @@ const FoodDisplay = ({ category }) => {
         </div>
       </div>
 
-      <div className='grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-x-8 gap-y-12 animate-slide-up'>
+      <div className='grid grid-cols-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-x-3 gap-y-6 md:gap-x-8 md:gap-y-12 animate-slide-up'>
         {loading ? (
           Array(8).fill(0).map((_, index) => <FoodItemSkeleton key={index} />)
         ) : finalDisplayList.length > 0 ? (

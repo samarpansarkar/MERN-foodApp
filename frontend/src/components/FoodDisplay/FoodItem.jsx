@@ -76,10 +76,10 @@ const FoodItem = ({ id, name, price, description, image }) => {
           </div>
         </div>
 
-        <div className='p-5 flex flex-col flex-1'>
-          <div className='flex justify-between items-center mb-2.5'>
-            <p className='text-xl font-medium truncate pr-2'>{name}</p>
-            <div className='flex text-amber-400 text-sm'>
+        <div className='p-3 md:p-5 flex flex-col flex-1'>
+          <div className='flex justify-between items-start md:items-center mb-1 md:mb-2.5 flex-col md:flex-row gap-1'>
+            <p className='text-sm md:text-xl font-medium truncate w-full'>{name}</p>
+            <div className='flex text-amber-400 text-[10px] md:text-sm'>
               <FiStar className="fill-current" />
               <FiStar className="fill-current" />
               <FiStar className="fill-current" />
@@ -88,15 +88,15 @@ const FoodItem = ({ id, name, price, description, image }) => {
             </div>
           </div>
 
-          <p className='text-gray-500 text-sm mb-4 line-clamp-2 min-h-[40px]'>
+          <p className='hidden md:block text-gray-500 text-sm mb-4 line-clamp-2 min-h-[40px]'>
             {description}
           </p>
 
-          <div className="mt-auto flex items-center justify-between">
-            <p className='text-2xl font-semibold text-primary-600'>${price}</p>
+          <div className="mt-auto flex flex-col md:flex-row items-center justify-between gap-2 md:gap-0">
+            <p className='text-lg md:text-2xl font-semibold text-primary-600'>${price}</p>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="text-xs font-semibold text-primary-600 bg-primary-50 px-3 py-1 rounded-full hover:bg-primary-100 transition-colors"
+              className="text-[10px] md:text-xs font-semibold text-primary-600 bg-primary-50 px-2 py-1 md:px-3 rounded-full hover:bg-primary-100 transition-colors w-full md:w-auto text-center"
             >
               Customize
             </button>
