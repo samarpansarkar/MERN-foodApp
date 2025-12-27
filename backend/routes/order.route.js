@@ -12,7 +12,6 @@ import { orderLimiter } from "../middleware/rateLimiter.js";
 
 const orderRoute = express.Router();
 
-//!Order Placement route - with validation and rate limiting
 orderRoute.post(
   "/place",
   authMiddleware,
@@ -21,14 +20,10 @@ orderRoute.post(
   placeOrder
 );
 
-//! verify order
 orderRoute.post("/verify", verifyOrder);
 
-//! user orders
 orderRoute.post("/myorder", authMiddleware, userOrder);
 
-//!ADMIN
-//!all orders route
 orderRoute.get("/list", listOrders);
 
 orderRoute.post("/status", updateStatus);

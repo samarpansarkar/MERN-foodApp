@@ -4,7 +4,6 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-//!placing user order for frontend
 const placeOrder = async (req, res) => {
   const { redirectUrl } = await req.body;
   try {
@@ -17,14 +16,13 @@ const placeOrder = async (req, res) => {
     await newOrder.save();
     await userModel.findByIdAndUpdate(req.body.userId, { cart: {} });
 
-    //! charge the user's card (Stripe expects amounts in cents)
     const line_items = req.body.items.map((item) => ({
       price_data: {
         currency: "usd",
         product_data: {
           name: item.name,
         },
-        unit_amount: item.price * 100, // Convert dollars to cents
+        unit_amount: item.price * 100,
       },
       quantity: item.quantity,
     }));
@@ -35,7 +33,7 @@ const placeOrder = async (req, res) => {
         product_data: {
           name: "Delivery Charges",
         },
-        unit_amount: 2 * 100, // $2 delivery fee in cents
+        unit_amount: 2 * 100,
       },
       quantity: 1,
     });
@@ -81,8 +79,6 @@ const userOrder = async (req, res) => {
   }
 };
 
-//!ADMIN
-//? all orders from all users
 const listOrders = async (req, res) => {
   try {
     const orders = await orderModel.find({});
@@ -93,7 +89,6 @@ const listOrders = async (req, res) => {
   }
 };
 
-//?api for updating order status
 const updateStatus = async (req, res) => {
   try {
     await orderModel.findByIdAndUpdate(req.body.orderId, {

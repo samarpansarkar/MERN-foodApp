@@ -5,10 +5,8 @@ import { authLimiter } from "../middleware/rateLimiter.js";
 
 const userRouter = express.Router();
 
-//!User Registration route - with validation and rate limiting
 userRouter.post("/register", authLimiter, validateRegister, registerUser);
 
-//!User Login route - with validation and rate limiting
 userRouter.post("/login", authLimiter, validateLogin, loginUser);
 
 export default userRouter;

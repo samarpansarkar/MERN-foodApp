@@ -1,22 +1,28 @@
 import { useState } from "react";
 import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
-import Header from "../../components/Header/Header";
+import HeroCarousel from "../../components/HeroCarousel/HeroCarousel";
 import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
 
 const HomePage = () => {
   const [category, setCategory] = useState("All");
+
   return (
-    <div className='pt-4'>
-      <Header />
+    <div className='pt-4 animate-fade-in'>
+      <HeroCarousel />
       <ExploreMenu category={category} setCategory={setCategory} />
       <FoodDisplay category={category} />
-      <div className='h-10 flex items-center justify-evenly'>
-        <a
-          href='/'
-          className='hover:bg-emerald-500 px-10 duration-700 rounded-lg'>
-          <h1 className='text-4xl font-semibold'>SpaNFood</h1>
-          <span>(Click to navigate to the top.)</span>
-        </a>
+
+      {/* Footer Navigation Hint */}
+      <div className='my-10 flex items-center justify-center'>
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className='group flex flex-col items-center gap-2 text-gray-400 hover:text-primary-600 transition-colors duration-300'
+        >
+          <span className="text-sm font-medium">Back to Top</span>
+          <div className="w-8 h-8 rounded-full border-2 border-current flex items-center justify-center group-hover:-translate-y-1 transition-transform">
+            ↑
+          </div>
+        </button>
       </div>
     </div>
   );
