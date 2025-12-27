@@ -23,7 +23,8 @@ const CartPage = () => {
   return (
     <div className='mt-24 animate-fade-in'>
       <div className='mb-12'>
-        <div className='grid grid-cols-[1fr_1.5fr_1fr_1fr_1fr_0.5fr] items-center text-gray-500 text-[max(1vw,12px)] mb-4'>
+        {/* Desktop Headers */}
+        <div className='hidden md:grid grid-cols-[1fr_1.5fr_1fr_1fr_1fr_0.5fr] items-center text-gray-500 text-[max(1vw,12px)] mb-4'>
           <p>Items</p>
           <p>Title</p>
           <p>Price</p>
@@ -31,26 +32,43 @@ const CartPage = () => {
           <p>Total</p>
           <p>Remove</p>
         </div>
-        <hr className='h-px bg-gray-200 border-none' />
+        <hr className='hidden md:block h-px bg-gray-200 border-none' />
+
         {foodList.map((item, index) => {
           if (cartItems[item._id] > 0) {
             return (
               <div key={index}>
-                <div className='grid grid-cols-[1fr_1.5fr_1fr_1fr_1fr_0.5fr] items-center text-gray-900 my-4 text-[max(1vw,12px)]'>
+                {/* Desktop Row */}
+                <div className='hidden md:grid grid-cols-[1fr_1.5fr_1fr_1fr_1fr_0.5fr] items-center text-gray-900 my-4 text-[max(1vw,12px)]'>
                   <img src={url + "/images/" + item.image} alt={item.name} className='w-[50px] rounded-lg' />
                   <p>{item.name}</p>
                   <p>$ {item.price}</p>
                   <p>{cartItems[item._id]}</p>
                   <p>$ {item.price * cartItems[item._id]}</p>
                   <p
-                    onClick={() => {
-                      removeFromCart(item._id);
-                    }}
+                    onClick={() => removeFromCart(item._id)}
                     className='cursor-pointer text-red-500 hover:text-red-700 font-bold'>
                     x
                   </p>
                 </div>
-                <hr className='h-px bg-gray-200 border-none' />
+                {/* Mobile Card */}
+                <div className="md:hidden flex items-center gap-4 py-4 border-b border-gray-100">
+                  <img src={url + "/images/" + item.image} alt={item.name} className='w-20 h-20 object-cover rounded-lg' />
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start mb-1">
+                      <h4 className="font-semibold text-gray-900">{item.name}</h4>
+                      <p
+                        onClick={() => removeFromCart(item._id)}
+                        className='text-red-500 font-bold px-2 cursor-pointer'
+                      >✕</p>
+                    </div>
+                    <div className="text-sm text-gray-600 flex justify-between items-center">
+                      <span>${item.price} x {cartItems[item._id]}</span>
+                      <span className="font-semibold text-gray-900">${item.price * cartItems[item._id]}</span>
+                    </div>
+                  </div>
+                </div>
+                <hr className='hidden md:block h-px bg-gray-200 border-none' />
               </div>
             );
           }

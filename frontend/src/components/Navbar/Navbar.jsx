@@ -16,6 +16,7 @@ const Navbar = ({ showLogin, setShowLogin }) => {
   const [menu, setMenu] = useState("home");
   const [showSearch, setShowSearch] = useState(false);
   const [localSearch, setLocalSearch] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,16 +34,31 @@ const Navbar = ({ showLogin, setShowLogin }) => {
     dispatch(logout());
     toast.success("Logged out successfully");
     navigate("/");
+    setIsMobileMenuOpen(false);
   };
 
   return (
     <nav className='sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm py-4 px-0 animate-slide-up transition-all'>
       <div className='flex justify-between items-center relative'>
-        <Link to='/' className='flex items-center'>
-          <h1 className='text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-primary-700 hover:from-primary-600 hover:to-primary-800 transition-all'>
-            SpaNFood
-          </h1>
-        </Link>
+        <div className="flex items-center gap-4">
+          {/* Hamburger Menu Button */}
+          <button
+            className="md:hidden text-gray-700 focus:outline-none"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <div className="space-y-1.5">
+              <span className={`block w-6 h-0.5 bg-gray-600 transition-transform ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+              <span className={`block w-6 h-0.5 bg-gray-600 transition-opacity ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`block w-6 h-0.5 bg-gray-600 transition-transform ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+            </div>
+          </button>
+
+          <Link to='/' className='flex items-center'>
+            <h1 className='text-2xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-primary-700 hover:from-primary-600 hover:to-primary-800 transition-all'>
+              SpaNFood
+            </h1>
+          </Link>
+        </div>
 
         {showSearch ? (
           <div className="absolute inset-0 z-50 bg-white flex items-center gap-2 px-2 md:static md:bg-transparent md:flex-1 md:max-w-md md:mx-auto animate-fade-in">
@@ -104,7 +120,7 @@ const Navbar = ({ showLogin, setShowLogin }) => {
               Login
             </Button>
           ) : (
-            <div className='relative group'>
+            <div className='relative group hidden md:block'>
               <div className='cursor-pointer p-2 rounded-full hover:bg-gray-100 transition-colors'>
                 <FiUser size={24} className='text-gray-700' />
               </div>
@@ -127,8 +143,39 @@ const Navbar = ({ showLogin, setShowLogin }) => {
               Login
             </button>
           )}
+
         </div>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-lg animate-slide-up flex flex-col py-4 px-6 gap-4">
+          <a href='/' onClick={() => { setMenu("home"); setIsMobileMenuOpen(false) }} className={`capitalize text-lg ${menu === "home" ? "text-primary-600 font-semibold" : "text-gray-600"}`}>
+            Home
+          </a>
+          <a href='#explore-menu' onClick={() => { setMenu("menu"); setIsMobileMenuOpen(false) }} className={`capitalize text-lg ${menu === "menu" ? "text-primary-600 font-semibold" : "text-gray-600"}`}>
+            Menu
+          </a>
+          {token && (
+            <>
+              <hr className="border-gray-100" />
+              <div onClick={() => { navigate("/myorders"); setIsMobileMenuOpen(false) }} className='flex items-center gap-3 text-gray-700 cursor-pointer'>
+                <HiOutlineShoppingBag size={20} />
+                My Orders
+              </div>
+              <div onClick={handleLogout} className='flex items-center gap-3 text-red-600 cursor-pointer'>
+                <HiOutlineLogout size={20} />
+                Logout
+              </div>
+            </>
+          )}
+          {!token && (
+            <Button variant="primary" size="sm" onClick={() => { setShowLogin(true); setIsMobileMenuOpen(false) }} className="w-full justify-center">
+              Login / Sign Up
+            </Button>
+          )}
+        </div>
+      )}
     </nav>
   );
 };

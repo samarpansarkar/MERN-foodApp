@@ -75,27 +75,27 @@ const PlaceOrderPage = () => {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className='flex flex-col md:flex-row items-start justify-between gap-12 mt-24 animate-fade-in'>
-      <div className='w-full max-w-[max(30%,500px)]'>
-        <p className='text-3xl font-semibold mb-12'>Delivery Information</p>
-        <div className='flex gap-2.5'>
-          <input required type='text' name='firstName' onChange={onChangeHandler} value={data.firstName} placeholder='First Name' className='mb-4 w-full p-2.5 border border-gray-300 rounded outline-primary-500' />
-          <input required type='text' name='lastName' onChange={onChangeHandler} value={data.lastName} placeholder='Last Name' className='mb-4 w-full p-2.5 border border-gray-300 rounded outline-primary-500' />
+      className='flex flex-col lg:flex-row items-start justify-between gap-12 mt-12 md:mt-24 animate-fade-in'>
+      <div className='w-full lg:max-w-[48%]'>
+        <p className='text-2xl md:text-3xl font-semibold mb-8 md:mb-12'>Delivery Information</p>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
+          <input required type='text' name='firstName' onChange={onChangeHandler} value={data.firstName} placeholder='First Name' className='w-full p-3 border border-gray-300 rounded outline-primary-500' />
+          <input required type='text' name='lastName' onChange={onChangeHandler} value={data.lastName} placeholder='Last Name' className='w-full p-3 border border-gray-300 rounded outline-primary-500' />
         </div>
-        <input required type='email' name='email' onChange={onChangeHandler} value={data.email} placeholder='Email Address' className='mb-4 w-full p-2.5 border border-gray-300 rounded outline-primary-500' />
-        <input required type='text' name='phoneNumber' onChange={onChangeHandler} value={data.phoneNumber} placeholder='Phone Number' className='mb-4 w-full p-2.5 border border-gray-300 rounded outline-primary-500' />
-        <div className='flex gap-2.5'>
-          <input required type='text' name='street' onChange={onChangeHandler} value={data.street} placeholder='Street' className='mb-4 w-full p-2.5 border border-gray-300 rounded outline-primary-500' />
-          <input required type='text' name='city' onChange={onChangeHandler} value={data.city} placeholder='City' className='mb-4 w-full p-2.5 border border-gray-300 rounded outline-primary-500' />
+        <input required type='email' name='email' onChange={onChangeHandler} value={data.email} placeholder='Email Address' className='mb-4 w-full p-3 border border-gray-300 rounded outline-primary-500' />
+        <input required type='text' name='phoneNumber' onChange={onChangeHandler} value={data.phoneNumber} placeholder='Phone Number' className='mb-4 w-full p-3 border border-gray-300 rounded outline-primary-500' />
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
+          <input required type='text' name='street' onChange={onChangeHandler} value={data.street} placeholder='Street' className='w-full p-3 border border-gray-300 rounded outline-primary-500' />
+          <input required type='text' name='city' onChange={onChangeHandler} value={data.city} placeholder='City' className='w-full p-3 border border-gray-300 rounded outline-primary-500' />
         </div>
-        <div className='flex gap-2.5'>
-          <input required type='text' name='state' onChange={onChangeHandler} value={data.state} placeholder='State' className='mb-4 w-full p-2.5 border border-gray-300 rounded outline-primary-500' />
-          <input required type='text' name='zipcode' onChange={onChangeHandler} value={data.zipcode} placeholder='Zip Code' className='mb-4 w-full p-2.5 border border-gray-300 rounded outline-primary-500' />
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
+          <input required type='text' name='state' onChange={onChangeHandler} value={data.state} placeholder='State' className='w-full p-3 border border-gray-300 rounded outline-primary-500' />
+          <input required type='text' name='zipcode' onChange={onChangeHandler} value={data.zipcode} placeholder='Zip Code' className='w-full p-3 border border-gray-300 rounded outline-primary-500' />
         </div>
-        <input required type='text' name='country' onChange={onChangeHandler} value={data.country} placeholder='Country' className='mb-4 w-full p-2.5 border border-gray-300 rounded outline-primary-500' />
+        <input required type='text' name='country' onChange={onChangeHandler} value={data.country} placeholder='Country' className='mb-4 w-full p-3 border border-gray-300 rounded outline-primary-500' />
       </div>
 
-      <div className='w-full max-w-[max(40%,500px)] mt-8 md:mt-0'>
+      <div className='w-full lg:max-w-[40%] mt-8 lg:mt-0'>
         <div className='flex flex-col gap-5'>
           <h2 className='text-2xl font-bold'>Cart Totals</h2>
           <div className="flex flex-col gap-2">

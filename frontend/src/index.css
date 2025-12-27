@@ -48,7 +48,7 @@
 
 @layer components {
   .app {
-    @apply w-[80%] max-w-[1400px] mx-auto;
+    @apply w-[90%] md:w-[85%] lg:w-[80%] max-w-[1400px] mx-auto transition-[width] duration-300;
   }
 
   /* Professional button utilities */

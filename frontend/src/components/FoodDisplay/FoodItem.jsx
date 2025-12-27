@@ -1,18 +1,21 @@
+
 import React, { useState } from "react";
 import { assets } from "../../assets/assets";
-import { FaStar, FaStarHalfAlt } from "react-icons/fa";
-import { FaRegStar } from "react-icons/fa6";
+import { FiPlus, FiMinus, FiStar } from "react-icons/fi";
 import FoodDetailsModal from "./FoodDetailsModal";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems, syncAddToCart, syncRemoveFromCart } from "../../redux/slices/cartSlice";
 import { selectToken } from "../../redux/slices/userSlice";
 import { BASE_API } from "../../constant";
+import { motion } from "framer-motion";
 
 const FoodItem = ({ id, name, price, description, image }) => {
   const cartItems = useSelector(selectCartItems);
   const token = useSelector(selectToken);
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const url = BASE_API;
+  const quantity = cartItems[id] || 0;
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
@@ -26,12 +29,20 @@ const FoodItem = ({ id, name, price, description, image }) => {
 
   return (
     <>
-      <div className='w-full m-auto rounded-[15px] shadow-[0px_0px_10px_#00000015] transition duration-300 animate-fade-in hover:shadow-xl group bg-white overflow-hidden flex flex-col'>
-        <div className='relative overflow-hidden cursor-pointer' onClick={() => setIsModalOpen(true)}>
-          <img
-            src={BASE_API + "/images/" + image}
+      <motion.div
+        className='w-full m-auto rounded-[15px] shadow-md transition-shadow duration-300 bg-white animate-fade-in group cursor-pointer h-full flex flex-col'
+        onClick={() => setIsModalOpen(true)}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)" }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className='relative w-full aspect-[4/3] overflow-hidden rounded-t-[15px]'>
+          <motion.img
+            className='w-full h-full object-cover transition-transform duration-500'
+            src={url + "/images/" + image}
             alt={name}
-            className='w-full rounded-t-[15px] hover:scale-105 transition-transform duration-500'
+            whileHover={{ scale: 1.05 }}
           />
 
           <div
@@ -69,11 +80,11 @@ const FoodItem = ({ id, name, price, description, image }) => {
           <div className='flex justify-between items-center mb-2.5'>
             <p className='text-xl font-medium truncate pr-2'>{name}</p>
             <div className='flex text-amber-400 text-sm'>
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStarHalfAlt />
-              <FaRegStar className="text-gray-300" />
+              <FiStar className="fill-current" />
+              <FiStar className="fill-current" />
+              <FiStar className="fill-current" />
+              <FiStar className="fill-current" />
+              <FiStar className="text-gray-300" />
             </div>
           </div>
 
@@ -91,8 +102,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
             </button>
           </div>
         </div>
-      </div>
-
+      </motion.div>
       <FoodDetailsModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
