@@ -125,6 +125,10 @@ const Navbar = ({ showLogin, setShowLogin }) => {
                 <FiUser size={24} className='text-gray-700' />
               </div>
               <ul className='absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 -translate-y-2'>
+                <li onClick={() => navigate("/profile")} className='flex items-center gap-3 px-4 py-3 hover:bg-primary-50 cursor-pointer transition-colors'>
+                  <FiUser size={20} className='text-gray-600' />
+                  <p className='text-gray-700 font-medium'>My Profile</p>
+                </li>
                 <li onClick={() => navigate("/myorders")} className='flex items-center gap-3 px-4 py-3 hover:bg-primary-50 cursor-pointer transition-colors'>
                   <HiOutlineShoppingBag size={20} className='text-gray-600' />
                   <p className='text-gray-700 font-medium'>My Orders</p>
@@ -159,6 +163,10 @@ const Navbar = ({ showLogin, setShowLogin }) => {
           {token && (
             <>
               <hr className="border-gray-100" />
+              <div onClick={() => { navigate("/profile"); setIsMobileMenuOpen(false) }} className='flex items-center gap-3 text-gray-700 cursor-pointer'>
+                <FiUser size={20} />
+                My Profile
+              </div>
               <div onClick={() => { navigate("/myorders"); setIsMobileMenuOpen(false) }} className='flex items-center gap-3 text-gray-700 cursor-pointer'>
                 <HiOutlineShoppingBag size={20} />
                 My Orders

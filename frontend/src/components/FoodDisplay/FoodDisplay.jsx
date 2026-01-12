@@ -48,7 +48,7 @@ const FoodDisplay = ({ category }) => {
               <FiSearch className="text-4xl text-gray-400" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-1">No matches found</h3>
-            <p>Try adjusting your search or filters to find what you're looking for.</p>
+            <p>Try adjusting your search or filters to find what you&apos;re looking for.</p>
           </div>
         )}
       </div>

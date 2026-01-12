@@ -13,31 +13,31 @@ const Verify = () => {
   const navigate = useNavigate();
   const [verifying, setVerifying] = useState(true);
 
-  const verifyPayment = async () => {
-    try {
-      const response = await axios.post(url + "/api/order/verify", {
-        orderId,
-        success,
-      });
-
-      if (response.data.success) {
-        toast.success("Payment successful! 🎉");
-        setTimeout(() => navigate("/myorders"), 1500);
-      } else {
-        toast.error("Payment failed. Please try again.");
-        setTimeout(() => navigate("/cart"), 2000);
-      }
-    } catch (error) {
-      toast.error("Something went wrong. Redirecting...");
-      setTimeout(() => navigate("/cart"), 2000);
-    } finally {
-      setVerifying(false);
-    }
-  };
-
   useEffect(() => {
+    const verifyPayment = async () => {
+      try {
+        const response = await axios.post(url + "/api/order/verify", {
+          orderId,
+          success,
+        });
+
+        if (response.data.success) {
+          toast.success("Payment successful! 🎉");
+          setTimeout(() => navigate("/myorders"), 1500);
+        } else {
+          toast.error("Payment failed. Please try again.");
+          setTimeout(() => navigate("/cart"), 2000);
+        }
+      } catch (error) {
+        toast.error("Something went wrong. Redirecting...");
+        setTimeout(() => navigate("/cart"), 2000);
+      } finally {
+        setVerifying(false);
+      }
+    };
+
     verifyPayment();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className='min-h-screen flex flex-col items-center justify-center bg-gray-50'>

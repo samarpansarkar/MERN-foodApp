@@ -18,27 +18,27 @@ const MyOrders = () => {
   const url = BASE_API;
   const navigate = useNavigate();
 
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.post(
-        url + "/api/order/myorder",
-        {},
-        { headers: { token } }
-      );
-      setData(response.data.data || []);
-    } catch (error) {
-      console.error("Failed to fetch orders:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.post(
+          url + "/api/order/myorder",
+          {},
+          { headers: { token } }
+        );
+        setData(response.data.data || []);
+      } catch (error) {
+        console.error("Failed to fetch orders:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (token) {
       fetchData();
     }
-  }, [token]);
+  }, [token, url]);
 
   const toggleOrder = (orderId) => {
     setExpandedOrderId(prev => prev === orderId ? null : orderId);
@@ -65,7 +65,7 @@ const MyOrders = () => {
             No orders yet
           </h3>
           <p className='text-gray-600 mb-6 text-center max-w-md'>
-            Looks like you haven't placed any orders yet. Start exploring our menu!
+            Looks like you haven&apos;t placed any orders yet. Start exploring our menu!
           </p>
           <Button variant="primary" onClick={() => navigate("/")}>
             Browse Menu

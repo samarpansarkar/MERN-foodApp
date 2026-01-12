@@ -73,4 +73,63 @@ const registerUser = async (req, res) => {
   }
 };
 
-export { loginUser, registerUser };
+const getProfile = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const user = await userModel.findById(userId).select("-password");
+    res.json({ success: true, data: user });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error" });
+  }
+};
+
+const updateProfile = async (req, res) => {
+  try {
+    const { userId, name, phone } = req.body;
+    await userModel.findByIdAndUpdate(userId, { name, phone });
+    res.json({ success: true, message: "Profile updated" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error" });
+  }
+};
+
+const addAddress = async (req, res) => {
+  try {
+    const { userId, address } = req.body;
+    const user = await userModel.findById(userId);
+    user.addresses.push(address);
+    await user.save();
+    res.json({
+      success: true,
+      message: "Address added",
+      addresses: user.addresses,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error" });
+  }
+};
+
+const removeAddress = async (req, res) => {
+  try {
+    const { userId, addressId } = req.body;
+    await userModel.findByIdAndUpdate(userId, {
+      $pull: { addresses: { _id: addressId } },
+    });
+    res.json({ success: true, message: "Address removed" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error" });
+  }
+};
+
+export {
+  loginUser,
+  registerUser,
+  getProfile,
+  updateProfile,
+  addAddress,
+  removeAddress,
+};

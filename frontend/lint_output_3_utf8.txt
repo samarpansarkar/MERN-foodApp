@@ -1,0 +1,36 @@
+﻿
+> frontend@0.0.0 lint
+> eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0
+
+
+C:\Users\samar\OneDrive\Desktop\spanFood\MERN-foodApp\frontend\src\App.jsx
+  68:27  error  'setIsAuthenticated' is assigned a value but never used. Allowed unused vars must match /^React$/u  no-unused-vars
+
+C:\Users\samar\OneDrive\Desktop\spanFood\MERN-foodApp\frontend\src\__tests__\FilterBar.test.jsx
+  19:110  error  'action' is defined but never used  no-unused-vars
+
+C:\Users\samar\OneDrive\Desktop\spanFood\MERN-foodApp\frontend\src\__tests__\LoadingSpinner.test.jsx
+  2:18  error  'screen' is defined but never used. Allowed unused vars must match /^React$/u  no-unused-vars
+
+C:\Users\samar\OneDrive\Desktop\spanFood\MERN-foodApp\frontend\src\__tests__\Skeletons.test.jsx
+  2:18  error  'screen' is defined but never used. Allowed unused vars must match /^React$/u  no-unused-vars
+
+C:\Users\samar\OneDrive\Desktop\spanFood\MERN-foodApp\frontend\src\components\FoodDisplay\FoodItem.jsx
+   4:10  error  'FiPlus' is defined but never used. Allowed unused vars must match /^React$/u                         no-unused-vars
+   4:18  error  'FiMinus' is defined but never used. Allowed unused vars must match /^React$/u                        no-unused-vars
+  18:9   error  'quantity' is assigned a value but never used. Allowed unused vars must match /^React$/u              no-unused-vars
+  20:9   error  'handleAddToCart' is assigned a value but never used. Allowed unused vars must match /^React$/u       no-unused-vars
+  25:9   error  'handleRemoveFromCart' is assigned a value but never used. Allowed unused vars must match /^React$/u  no-unused-vars
+
+C:\Users\samar\OneDrive\Desktop\spanFood\MERN-foodApp\frontend\src\components\Navbar\Navbar.jsx
+  15:19  error  'showLogin' is defined but never used  no-unused-vars
+
+C:\Users\samar\OneDrive\Desktop\spanFood\MERN-foodApp\frontend\src\pages\PlaceOrder\PlaceOrderPage.jsx
+  77:6  warning  React Hook useEffect has missing dependencies: 'dispatch', 'getTotalCartAmount', and 'navigate'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\samar\OneDrive\Desktop\spanFood\MERN-foodApp\frontend\src\redux\slices\foodSlice.js
+  51:19  error  'state' is defined but never used   no-unused-vars
+  51:26  error  'action' is defined but never used  no-unused-vars
+
+Γ£û 13 problems (12 errors, 1 warning)
+
